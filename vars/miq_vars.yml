@@ -1,6 +1,7 @@
 ---
-miq_home_dir:       "/var/www/miq/vmdb"
-miq_tools_dir:      "{{ miq_home_dir }}/tools"
-miq_profile:        "/etc/profile.d/evm.sh"
-cfme_vddk_path:     "/root/VMware-vix-disklib-6.0.2-3566099.x86_64.tar"
+miq_home_dir:           "/var/www/miq/vmdb"
+miq_tools_dir:          "{{ miq_home_dir }}/tools"
+miq_profile:            "/etc/profile.d/evm.sh"
+default_admin_password: "smartvm"
+cfme_vddk_path:         "/root/VMware-vix-disklib-6.0.2-3566099.x86_64.tar"
 
