@@ -39,7 +39,7 @@
 
 - name: CFME | Add Control Profile to VMware Providers | Assign the profile the VMware provider IDs
   uri:
-    url: https://localhost/api/providers/{{ item }}/policies
+    url: https://localhost/api/providers/{{ item }}/policy_profiles
     method: POST
     user: admin
     password: "{{ default_admin_password }}"
@@ -55,5 +55,5 @@
   register: rest_return
   
 - debug:
-    var: rest_return.json  
+    var: rest_return 
 
