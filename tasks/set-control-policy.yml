@@ -48,9 +48,8 @@
     body_format: json
     body:
       action: assign
-      data:
-        resource:
-          href: "{{ control_profile_href }}"
+      resource:
+        href: "{{ control_profile_href }}"
   with_items: "{{ vmware_provider_ids }}"
   register: rest_return
   
