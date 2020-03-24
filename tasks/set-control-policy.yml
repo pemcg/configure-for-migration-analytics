@@ -1,8 +1,7 @@
 ---
-vars:
-  - vmware_provider_ids: []
+- set_fact:
+    vmware_provider_ids: []
 
-tasks:
   - name: CFME | Add Control Profile to VMware Providers | Get the profile ID
     uri:
       url: https://localhost/api/policy_profiles?filter[]=name=VM+SmartState+Analysis+profile&attributes=id,name&expand=resources
