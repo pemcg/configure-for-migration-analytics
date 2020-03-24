@@ -1,6 +1,6 @@
 ---
 - name:  Setup SmartState Analysis for Migration Analytics
-  hosts: "{{ miq_region_host_group | default('all') }}"
+  hosts: all
   vars_files:
     - vars/miq_vars.yml
     
@@ -25,7 +25,7 @@
         
     - name: CFME | SmartState Analysis | Set the number of SmartProxy workers
       shell: |
-         {{ miq_tools_dir }}/configure_server_settings.rb                 \
+        {{ miq_tools_dir }}/configure_server_settings.rb                  \
         -s {{ server_id }}                                                \
         -p workers/worker_base/queue_worker_base/smart_proxy_worker/count \
         -v 5                                                              \
@@ -33,10 +33,10 @@
         
     - name: CFME | SmartState Analysis | Set scan_via_host to false
       shell: |
-         {{ miq_tools_dir }}/configure_server_settings.rb \
-        -s {{ server_id }}                                \
-        -p coresident_miqproxy/scan_via_host              \
-        -v false                                          \
+        {{ miq_tools_dir }}/configure_server_settings.rb \
+        -s {{ server_id }}                               \
+        -p coresident_miqproxy/scan_via_host             \
+        -v false                                         \
         -t boolean
         
     - name: CFME | SmartState Analysis | Check that the VDDK file {{ cfme_vddk_path }} exists
