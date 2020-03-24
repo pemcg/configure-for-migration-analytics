@@ -14,7 +14,7 @@
       register: shell_output
       
     - set_fact:
-        server_id: shell_output.stdout
+        server_id: {{ shell_output.stdout }}
       
     - debug:
         var: server_id
