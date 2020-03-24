@@ -11,10 +11,9 @@
     dest: "{{ tmp_dir['path'] }}"
 
 - name: CFME | Install VDDK | Sync Folder to /usr/lib
-  synchronize:
+  copy:
     src:  "{{ tmp_dir['path'] }}/vmware-vix-disklib-distrib/"
     dest: /usr/lib/vmware-vix-disklib
-  delegate_to: "{{ inventory_hostname }}"
 
 - name: CFME | Install VDDK | Link libvixDiskLib.so
   file:
