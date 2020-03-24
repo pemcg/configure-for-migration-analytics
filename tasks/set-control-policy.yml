@@ -1,7 +1,7 @@
 ---
 - name: CFME | Add Control Profile to VMware Providers | Get the profile ID
   uri:
-    url: https://localhost/api/policy_profiles?filter[]=name='VM SmartState Analysis profile'&attributes=id,name&expand=resources
+    url: https://localhost/api/policy_profiles?filter[]=name=VM+SmartState+Analysis+profile&attributes=id,name&expand=resources
     method: GET
     user: admin
     password: "{{ default_admin_password }}"
@@ -18,7 +18,7 @@
     
 - name: CFME | Add Control Profile to VMware Providers | Get the VMware provider IDs
   uri:
-    url: https://localhost/api/providers?filter[]=type='ManageIQ::Providers::Vmware::InfraManager'&expand=resources&attributes=name,id
+    url: https://localhost/api/providers?filter[]=type=ManageIQ::Providers::Vmware::InfraManager&expand=resources&attributes=name,id
     method: GET
     user: admin
     password: "{{ default_admin_password }}"
