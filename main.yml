@@ -1,6 +1,6 @@
 ---
 - name:  Setup SmartState Analysis for Migration Analytics
-  hosts: all
+  hosts: localhost
   vars_files:
     - vars/miq_vars.yml
     
