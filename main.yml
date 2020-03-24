@@ -1,0 +1,49 @@
+---
+- name:  Setup SmartState Analysis for Migration Analytics
+  hosts: "{{ miq_region_host_group | default('all') }}"
+  vars_files:
+    - vars/miq_vars.yml
+    
+  tasks:
+
+    - name: Get the current server ID
+      shell: |
+        set -o pipefail                          \
+        source {{ miq_profile }} &&              \
+        bin/rails r "puts MiqServer.my_server.id"
+      register: server_id
+      
+    - debug:
+        var: server_id
+        
+    - name: CFME | SmartState Analysis | Enable the server roles
+      shell: |
+        {{ miq_tools_dir }}/configure_server_settings.rb \
+        -s {{ server_id }}                               \
+        -p server/role                                   \
+        -v automate,database_operations,ems_inventory,ems_operations,event,notifier,reporting,scheduler,smartproxy,smartstate,user_interface,web_services
+        
+    - name: CFME | SmartState Analysis | Set the number of SmartProxy workers
+      shell: |
+         {{ miq_tools_dir }}/configure_server_settings.rb                 \
+        -s {{ server_id }}                                                \
+        -p workers/worker_base/queue_worker_base/smart_proxy_worker/count \
+        -v 5                                                              \
+        -t integer
+        
+    - name: CFME | SmartState Analysis | Set scan_via_host to false
+      shell: |
+         {{ miq_tools_dir }}/configure_server_settings.rb \
+        -s {{ server_id }}                                \
+        -p coresident_miqproxy/scan_via_host              \
+        -v false                                          \
+        -t boolean
+        
+    - name: CFME | SmartState Analysis | Check that the VDDK file {{ cfme_vddk_path }} exists
+      stat:
+        path: "{{ cfme_vddk_path }}"
+      register: stat_result
+    
+    - name: CFME | SmartState Analysis | Install VDDK
+      include_tasks: tasks/install-vddk.yml
+      when: stat_result.stat.exists
