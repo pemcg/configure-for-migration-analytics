@@ -10,7 +10,7 @@
       shell: |
         set -o pipefail                          \
         source {{ miq_profile }} &&              \
-        bin/rails r "puts MiqServer.my_server.id"
+        {{ miq_home_dir }}/bin/rails r "puts MiqServer.my_server.id"
       register: server_id
       
     - debug:
