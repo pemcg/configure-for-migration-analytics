@@ -17,7 +17,7 @@
     control_profile_href: "{{ rest_return.json.resources[0].href }}"
     
 - debug:
-    var: control_profile_id
+    var: control_profile_href
     
 - name: CFME | Add Control Profile to VMware Providers | Get the VMware provider IDs
   uri:
@@ -48,7 +48,12 @@
     body_format: json
     body:
       action: assign
-      resource:
-        href: "{{ control_profile_href }}"
+      data:
+        resource:
+          href: "{{ control_profile_href }}"
   with_items: "{{ vmware_provider_ids }}"
+  register: rest_return
+  
+- debug:
+    var: rest_return.json  
 
