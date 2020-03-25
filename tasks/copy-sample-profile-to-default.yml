@@ -1,0 +1,47 @@
+---
+- name:  Setup SmartState Analysis for Migration Analytics
+  hosts: localhost
+  vars_files:
+    - vars/miq_vars.yml
+    
+  tasks:
+    - name: Get the current server ID
+      shell: |
+        set -o pipefail                          \
+        source {{ miq_profile }} &&              \
+        bin/rails r "                            \
+          default_id = ScanItemSet.find_by(:name => 'default')
+      register: shell_output
+      
+    - debug:
+        var: shell_output
+      
+    #- set_fact:
+    #    default_profile_id: "{{ shell_output.stdout }}"
+    #  
+    #- debug:
+    #    var: default_profile_id
+    #  
+    #- name: CFME | Set the default SSA profile | Copy the sample profile to default
+    #  shell: |
+    #    set -o pipefail                          \
+    #    source {{ miq_profile }} &&              \
+    #    bin/rails r "                            \
+    #      sample_sis = ScanItemSet.find_by(:name => 'sample')
+    #      default_sis = ScanItemSet.new
+    #      default_sis.name = "default"
+    #      default_sis.description = "VM Default"
+    #      default_sis.mode = sample_sis.mode
+    #      default_sis.read_only = nil
+    #      default_sis.save!
+    #      scanitems = sample_sis.members     # Get the member sets
+    #      scanitems.each do |scanitem|
+    #        new_si = scanitem.dup
+    #        new_si.name = "default_" + scanitem.name
+    #        new_si.description = "default_" + scanitem.description
+    #        new_si.save!
+    #        default_sis.add_member(new_si)
+    #      end
+    #    "
+    #  register: copy_profile_output
+    #  when: default_profile_id != nil
