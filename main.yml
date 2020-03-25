@@ -42,6 +42,10 @@
         -v false                                         \
         -t boolean
         
+    - import_tasks: tasks/set-control-policy.yml
+    
+    - import_tasks: tasks/copy-sample-profile-to-default.yml
+    
     - name: CFME | SmartState Analysis | Check that the VDDK file {{ cfme_vddk_path }} exists
       stat:
         path: "{{ cfme_vddk_path }}"
@@ -50,6 +54,3 @@
     - name: CFME | SmartState Analysis | Install VDDK
       include_tasks: tasks/install-vddk.yml
       when: stat_result.stat.exists
-      
-    - import_tasks: tasks/set-control-policy.yml
-    
