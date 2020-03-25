@@ -5,7 +5,6 @@
     - vars/miq_vars.yml
     
   tasks:
-
     - name: Get the current server ID
       shell: |
         set -o pipefail                          \

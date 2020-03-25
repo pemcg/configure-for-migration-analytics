@@ -1,5 +1,5 @@
 ---
-- name: Get the current server ID
+- name: CFME | Set the default SSA profile | Check if the default profile exists
   shell: |
     set -o pipefail                          \
     source {{ miq_profile }} &&              \
@@ -35,4 +35,4 @@
         default_sis.add_member(new_si)
       end
     "
-  when: default_profile_id != ""
+  when: default_profile_id == ""
