@@ -1,7 +1,8 @@
 ---
 - name:  Setup SmartState Analysis for Migration Analytics
   hosts: localhost
-    
+  vars:
+    miq_profile:            "/etc/profile.d/evm.sh"
   tasks:
     - name: Get the current server ID
       shell: |
