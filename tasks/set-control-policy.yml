@@ -1,19 +1,20 @@
 ---
 - set_fact:
     vmware_provider_ids: []
+    provider_type: 'ManageIQ::Providers::Vmware::InfraManager'
  
 - name: Generate an API token  
   shell: |
-    set -o pipefail                          \
-    source {{ miq_profile }} &&              \
-    {{ miq_home_dir }}/bin/rails r "                            \
+    set -o pipefail                    \
+    source {{ miq_profile }} &&        \
+    {{ miq_home_dir }}/bin/rails r "   \
       puts Api::UserTokenService.new.generate_token('admin', 'api')"
   register: shell_output
   
 - set_fact:
     api_token: "{{ shell_output.stdout }}"
 
-- name: CFME | Add Control Profile to VMware Providers | Get the profile ID
+- name: CFME | Add Control Profile | Get the profile ID
   uri:
     url: https://localhost/api/policy_profiles?filter[]=name=VM+SmartState+Analysis+profile
     method: GET
@@ -29,9 +30,9 @@
 - debug:
     var: control_profile_href
     
-- name: CFME | Add Control Profile to VMware Providers | Get the VMware provider IDs
+- name: CFME | Add Control Profile | Get the VMware provider IDs
   uri:
-    url: https://localhost/api/providers?filter[]=type=ManageIQ::Providers::Vmware::InfraManager&expand=resources&attributes=name,id
+    url: https://localhost/api/providers?filter[]=type={{ provider_type }}&expand=resources&attributes=name,id
     method: GET
     headers:
       X-Auth-Token: "{{ api_token }}"
@@ -46,7 +47,7 @@
 - debug:
     var: vmware_provider_ids  
 
-- name: CFME | Add Control Profile to VMware Providers | Assign the profile the VMware provider IDs
+- name: CFME | Add Control Profile | Assign the profile the VMware provider IDs
   uri:
     url: https://localhost/api/providers/{{ item }}/policy_profiles
     method: POST
@@ -61,6 +62,4 @@
   with_items: "{{ vmware_provider_ids }}"
   register: rest_return
   
-- debug:
-    var: rest_return 
 

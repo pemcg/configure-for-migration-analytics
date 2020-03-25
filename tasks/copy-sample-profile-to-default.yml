@@ -1,9 +1,9 @@
 ---
-- name: CFME | Set the default SSA profile | Check if the default profile exists
+- name: CFME | Set the default SmartState profile | Check if the default profile exists
   shell: |
-    set -o pipefail                          \
-    source {{ miq_profile }} &&              \
-    {{ miq_home_dir }}/bin/rails r "                            \
+    set -o pipefail                   \
+    source {{ miq_profile }} &&       \
+    {{ miq_home_dir }}/bin/rails r "  \
       default_si = ScanItemSet.find_by(:name => 'default')
       puts default_si.id unless default_si.nil?"
   register: shell_output
@@ -14,11 +14,11 @@
 - debug:
     var: default_profile_id
   
-- name: CFME | Set the default SSA profile | Copy the sample profile to default
+- name: CFME | Set the default SmartState profile | Copy the sample profile to default
   shell: |
-    set -o pipefail                          \
-    source {{ miq_profile }} &&              \
-    bin/rails r "                            \
+    set -o pipefail                   \
+    source {{ miq_profile }} &&       \
+    {{ miq_home_dir }}/bin/rails r "  \
       sample_sis = ScanItemSet.find_by(:name => 'sample')
       default_sis = ScanItemSet.new
       default_sis.name = "default"
