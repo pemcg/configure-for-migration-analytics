@@ -3,12 +3,14 @@
   hosts: localhost
   vars:
     miq_profile:            "/etc/profile.d/evm.sh"
+    miq_home_dir:           "/var/www/miq/vmdb"
+    miq_tools_dir:          "{{ miq_home_dir }}/tools"
   tasks:
     - name: Get the current server ID
       shell: |
         set -o pipefail                          \
         source {{ miq_profile }} &&              \
-        bin/rails r "                            \
+        {{ miq_home_dir }}/bin/rails r "                            \
           default_id = ScanItemSet.find_by(:name => 'default')"
       register: shell_output
       
