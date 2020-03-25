@@ -1,8 +1,6 @@
 ---
 - name:  Setup SmartState Analysis for Migration Analytics
   hosts: localhost
-  vars_files:
-    - vars/miq_vars.yml
     
   tasks:
     - name: Get the current server ID
