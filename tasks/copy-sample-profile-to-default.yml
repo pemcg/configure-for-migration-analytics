@@ -11,7 +11,8 @@
         set -o pipefail                          \
         source {{ miq_profile }} &&              \
         {{ miq_home_dir }}/bin/rails r "                            \
-          default_id = ScanItemSet.find_by(:name => 'default')"
+          default_si = ScanItemSet.find_by(:name => 'default')
+          puts default_si.id unless default_si.nil?"
       register: shell_output
       
     - debug:
