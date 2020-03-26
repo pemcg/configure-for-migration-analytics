@@ -1,4 +1,4 @@
 #!/bin/bash
 read -e -p "Path for VMware VDDK file: " vddk_path
 echo "vddk_path:     \"$vddk_path\"" >> vars/miq_vars.yml
-ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i 127.0.0.1, main.yml
+ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i hosts main.yml
