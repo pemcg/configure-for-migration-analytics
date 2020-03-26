@@ -11,9 +11,9 @@
     
     - import_tasks: tasks/copy-sample-profile-to-default.yml
     
-    - name: CFME | SmartState Analysis | Check that the VDDK file {{ cfme_vddk_path }} exists
+    - name: CFME | SmartState Analysis | Check that the VDDK file {{ vddk_path }} exists
       stat:
-        path: "{{ cfme_vddk_path }}"
+        path: "{{ vddk_path }}"
       register: stat_result
     
     - name: CFME | SmartState Analysis | Install VDDK
