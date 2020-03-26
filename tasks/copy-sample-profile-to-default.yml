@@ -21,16 +21,16 @@
     {{ miq_home_dir }}/bin/rails r "  \
       sample_sis = ScanItemSet.find_by(:name => 'sample')
       new_sis = ScanItemSet.new
-      new_sis.name = "default"
-      new_sis.description = "VM Default"
+      new_sis.name = \"default\"
+      new_sis.description = \"VM Default\"
       new_sis.mode = sample_sis.mode
       new_sis.read_only = nil
       new_sis.save!
       scanitems = sample_sis.members     # Get the member sets
       scanitems.each do |scanitem|
         new_si = scanitem.dup
-        new_si.name = "default_" + scanitem.name
-        new_si.description = "default_" + scanitem.description
+        new_si.name = \"default_\" + scanitem.name
+        new_si.description = \"default_\" + scanitem.description
         new_si.save!
         new_sis.add_member(new_si)
       end
