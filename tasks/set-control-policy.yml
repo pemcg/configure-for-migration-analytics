@@ -47,7 +47,7 @@
 - debug:
     var: vmware_provider_ids  
 
-- name: CFME | Add Control Profile | Assign the profile the VMware provider IDs
+- name: CFME | Add Control Profile | Assign the profile to the VMware provider IDs
   uri:
     url: https://localhost/api/providers/{{ item }}/policy_profiles
     method: POST
