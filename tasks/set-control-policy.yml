@@ -26,10 +26,7 @@
   
 - set_fact:
     control_profile_href: "{{ rest_return.json.resources[0].href }}"
-    
-- debug:
-    var: control_profile_href
-    
+       
 - name: CFME | Add Control Profile | Get the VMware provider IDs
   uri:
     url: https://localhost/api/providers?filter[]=type={{ provider_type }}&expand=resources&attributes=name,id
