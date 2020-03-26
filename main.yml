@@ -5,7 +5,7 @@
     - vars/miq_vars.yml
     
   tasks:
-    - import_tasks: tasks/configure-server-settimgs.yml
+    - import_tasks: tasks/configure-server-settings.yml
     
     - import_tasks: tasks/set-control-policy.yml
     

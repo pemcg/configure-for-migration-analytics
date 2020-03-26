@@ -7,7 +7,7 @@
 
 - name: CFME | Install VDDK | Extract VDDK
   unarchive:
-    src: "{{ cfme_vddk_path }}"
+    src: "{{ vddk_path }}"
     dest: "{{ tmp_dir['path'] }}"
 
 - name: CFME | Install VDDK | Sync Folder to /usr/lib
