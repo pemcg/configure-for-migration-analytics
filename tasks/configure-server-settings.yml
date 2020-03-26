@@ -34,3 +34,11 @@
     -p coresident_miqproxy/scan_via_host             \
     -v false                                         \
     -t boolean
+    
+- name: CFME | SmartState Analysis | Set concurrent_per_ems to 5
+  shell: |
+    {{ miq_tools_dir }}/configure_server_settings.rb \
+    -s {{ server_id }}                               \
+    -p coresident_miqproxy/concurrent_per_ems        \
+    -v 5                                             \
+    -t integer
